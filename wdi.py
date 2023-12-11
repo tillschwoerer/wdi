@@ -2,16 +2,20 @@ import pandas as pd
 import altair as alt
 import streamlit as st
 import warnings
+from pathlib import Path
+
 warnings.filterwarnings('ignore')
 
 st.set_page_config(layout="wide")
 
 alt.data_transformers.enable('default', max_rows=None)
 
+dir = Path(__file__).parent
+
 
 @st.cache_data
 def get_data():
-    df = pd.read_csv('wdi.csv')
+    df = pd.read_csv(dir / 'wdi.csv')
     df['gdp_capita'] = df.gdp / df.population
     return df
 
